@@ -15,6 +15,7 @@ const MyChats = ({ fetchAgain }) => {
     setChats,
     socket,
     onlineUsers,
+    url
   } = ChatState();
   const fetchChats = async () => {
     // console.log(user._id);
@@ -26,7 +27,7 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       const { data } = await axios.get(
-        "http://localhost:8000/api/chat",
+        `${url}/api/chat`,
         config
       );
 

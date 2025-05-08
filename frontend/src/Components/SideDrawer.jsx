@@ -25,7 +25,7 @@ const SideDrawer = () => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, setSelectedChat, chats, setChats, socket } = ChatState();
+  const { user, setSelectedChat, chats, setChats, socket ,url} = ChatState();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -46,7 +46,7 @@ const SideDrawer = () => {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:8000/api/user?search=${search}`,
+        `${url}/api/user?search=${search}`,
         config
       );
       setLoading(false);
@@ -64,7 +64,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get("http://localhost:8000/api/user", config);
+      const { data } = await axios.get(`${url}/api/user`, config);
       setSearchResult(data); 
       setLoading(false);
     } catch (error) {
@@ -83,7 +83,7 @@ const SideDrawer = () => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:8000/api/chat",
+        `${url}/api/chat`,
         { userId },
         config
       );

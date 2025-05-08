@@ -6,6 +6,7 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
+import { ChatState } from "../../Context/ChatProvider";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -14,6 +15,7 @@ const Signup = () => {
   const [password , setPassword ] = useState();
   const [pic , setPic] = useState();
   const navigate = useNavigate();
+  const {url} = ChatState();
 
     const handleClick = () => setShow(!show);
 
@@ -31,7 +33,7 @@ const Signup = () => {
           "content-type":"application/json",
         },
       };
-      const{data} = await axios.post("http://localhost:8000/api/user",{name,email,password,pic},config);
+      const{data} = await axios.post(`${url}/api/user`,{name,email,password,pic},config);
       localStorage.setItem("userInfo",JSON.stringify(data));
       navigate("/chats")
     }catch(error){

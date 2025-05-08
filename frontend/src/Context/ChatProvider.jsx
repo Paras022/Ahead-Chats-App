@@ -5,6 +5,8 @@ import io from "socket.io-client";
 const ChatContext = createContext()
 
 const ChatProvider = ({children}) =>{
+
+  const url = "http://localhost:8000";
    const [user , setUser ] =  useState();
    const [selectedChat , setSelectedChat] = useState();
    const [chats ,setChats] = useState([]);
@@ -41,7 +43,7 @@ const ChatProvider = ({children}) =>{
       
     
     return (
-        <ChatContext.Provider value ={{user , setUser , selectedChat , setSelectedChat ,chats ,setChats ,notification,setNotification ,socket,
+        <ChatContext.Provider value ={{url ,user , setUser , selectedChat , setSelectedChat ,chats ,setChats ,notification,setNotification ,socket,
             onlineUsers }}>
             {children}
         </ChatContext.Provider>

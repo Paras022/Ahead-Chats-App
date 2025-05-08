@@ -7,8 +7,10 @@ import {
 } from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import { ChatState } from "../../Context/ChatProvider";
 const Login = () => {
   
+    const {url} = ChatState();
       const [show, setShow] = useState(false);
       
       const [email , setEmail ] = useState();
@@ -30,7 +32,7 @@ const Login = () => {
                     "content-type":"application/json",
                   },
                 };
-                const{data} = await axios.post("http://localhost:8000/api/user/login",{email,password},config);
+                const{data} = await axios.post(`${url}/api/user/login`,{email,password},config);
                 localStorage.setItem("userInfo",JSON.stringify(data));
                 
                 navigate("/chats")
