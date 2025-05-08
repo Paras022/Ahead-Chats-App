@@ -1,0 +1,24 @@
+{
+  "name": "ahead-chat-app",
+  "version": "1.0.0",
+  "description": "a chat application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon backend/server.js"
+  },
+  "author": "paras sharma",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
+    "json-web-token": "^3.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.1",
+    "nodemon": "^3.1.10",
+    "react": "^18.3.1",
+    "socket.io": "^4.8.1"
+  }
+}
