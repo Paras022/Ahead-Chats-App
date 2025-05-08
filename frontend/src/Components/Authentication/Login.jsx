@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
+  
 } from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -18,9 +17,7 @@ const Login = () => {
     
         const handleClick = () => setShow(!show);
     
-        const postDetails = (pics) =>{
-    
-        };
+       
     
         const submithandler = async () =>{
           if(!email || !password){

@@ -30,11 +30,6 @@ app.use(notFound)
 app.use(errorHandler)
 
 
-
-// app.use((err, req, res, next) => {
-//   console.error("Unhandled Error:", err.stack);
-//   res.status(500).send("Something broke!");
-// });
 const PORT = process.env.PORT || 8000;
 const server =  app.listen(PORT, () => console.log(`server has started on PORT ${PORT}`));
 
@@ -45,14 +40,14 @@ const io = require("socket.io")(server,{
   },
 });
 
-const onlineUsers = new Map(); // Map userId => socket.id
+const onlineUsers = new Map(); 
 
 io.on("connection" ,(socket)=>{
 
   socket.on('setup', (userData) => {
     socket.join(userData._id);
-    onlineUsers.set(userData._id, socket.id); // ✅ Add to online users
-    io.emit("get-online-users", Array.from(onlineUsers.keys())); // 📡 Notify everyone
+    onlineUsers.set(userData._id, socket.id); 
+    io.emit("get-online-users", Array.from(onlineUsers.keys())); 
     socket.emit("connected");
   });
   
@@ -63,16 +58,10 @@ io.on("connection" ,(socket)=>{
         break;
       }
     }
-    io.emit("get-online-users", Array.from(onlineUsers.keys())); // 📡 Update everyone
+    io.emit("get-online-users", Array.from(onlineUsers.keys())); 
   });
   
 
-
-  // socket.on('setup' ,(userData)=>{
-  //   socket.join(userData._id);
-  //   // console.log(userData._id);
-  //   socket.emit("connected")
-  // });
 
   socket.on('join chat',(room)=>{
     socket.join(room);

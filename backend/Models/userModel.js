@@ -24,26 +24,18 @@ return await bcrypt.compare(enteredPassword , this.password);
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    return next(); // important to call next() and return here
+    return next();
   }
 
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    next(); // ✅ ensure this is called after hashing
+    next(); 
   } catch (err) {
-    next(err); // ✅ forward error if something fails
+    next(err); 
   }
 });
 
-// userSchema.pre('save',async function(next){
-//   if(!this.ismodified('password')){
-//     next()
-//   }
-//   const salt = await bcrypt.genSalt(10);
-
-//   this.password = await bcrypt.hash(this.password , salt);
-// })
 
 const User = mongoose.model("User", userSchema);
 

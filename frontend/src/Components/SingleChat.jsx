@@ -147,17 +147,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.emit("typing", selectedChat._id);
     }
 
-    // let lastTypingTime = new Date().getTime();
-    // var timerLength = 3000;
-    // setTimeout(() => {
-    //   var timenow = new Date().getTime();
-    //   var timeDiff = timenow - lastTypingTime;
-
-    //   if (timeDiff >= timerLength && typing) {
-    //     socket.emit("stop typing", selectedChat._id);
-    //     setTyping(false);
-    //   }
-    // }, timerLength);
+    
     debouncedStopTyping();
   };
 

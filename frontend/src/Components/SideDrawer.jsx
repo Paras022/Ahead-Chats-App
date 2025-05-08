@@ -65,7 +65,7 @@ const SideDrawer = () => {
         },
       };
       const { data } = await axios.get("http://localhost:8000/api/user", config);
-      setSearchResult(data); // Reuse same list for rendering
+      setSearchResult(data); 
       setLoading(false);
     } catch (error) {
       alert("Failed to fetch all users");

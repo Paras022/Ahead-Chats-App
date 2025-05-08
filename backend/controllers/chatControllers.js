@@ -12,10 +12,7 @@ const accessChat = asyncHandler(async(req, res)=>{
 
   var isChat = await Chat.find({
       users: { $all: [req.user._id, userId] },
-        // $and:[
-        //     {users : {$elementMatch: {$eq : req.user._id}}},
-        //     {users: {$elementMatch:{$eq:userId}}}
-        // ],
+        
   }).populate("users","-password").populate("latestMessage");
 
   isChat = await User.populate(isChat ,{
@@ -68,20 +65,4 @@ const fetchChats = asyncHandler(async (req, res) => {
   });
   
 
-// const fetchChats = asyncHandler(async (req, res) => {
-//     try {
-//       const chats = await Chat.find({ users: req.user._id })
-//         .populate("users", "-password")
-//         .populate("latestMessage")
-//         .sort({ updatedAt: -1 }); // Most recent chats first
-        
-         
-//       res.status(200).json(chats);
-//     } catch (error) {
-//       res.status(400);
-//       throw new Error(error.message);
-//     }
-//   });
-  
-// .populate("groupAdmin", "-password")
 module.exports = {accessChat , fetchChats};
