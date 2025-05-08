@@ -6,7 +6,7 @@ const ChatContext = createContext()
 
 const ChatProvider = ({children}) =>{
 
-  const url = "http://localhost:8000;
+  const url = "http://localhost:8000";
    const [user , setUser ] =  useState();
    const [selectedChat , setSelectedChat] = useState();
    const [chats ,setChats] = useState([]);
