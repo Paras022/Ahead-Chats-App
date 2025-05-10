@@ -14,7 +14,14 @@ const app = express();
 // to accept the json data from the frontend
 app.use(express.json()); 
 const cors = require('cors');
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://ahead-chats-app.onrender.com",
+    credentials: true,
+  })
+);
+
+
 
 
 app.get('/chats', (req, res) => {
@@ -38,7 +45,9 @@ const server =  app.listen(PORT, () => console.log(`server has started on PORT $
 const io = require("socket.io")(server,{
   pingTimeout:60000,
   cors:{
-    origin:"https://ahead-chats-app.onrender.com"  //"http://localhost:5173",
+    origin:"https://ahead-chats-app.onrender.com",  //"http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 

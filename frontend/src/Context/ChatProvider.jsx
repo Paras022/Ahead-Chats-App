@@ -25,8 +25,11 @@ const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     if (!user) return;
-
-    const newSocket = io(url); // server URL
+    const newSocket = io("https://ahead-chats-backend.onrender.com", {
+      transports: ["websocket"], // force websocket to avoid long-polling fallback
+      withCredentials: true,
+    });
+    // const newSocket = io(url); // server URL
     setSocket(newSocket);
     console.log(`✅ New socket created: ${newSocket.id} for ${user.name}`);
     newSocket.emit("setup", user);

@@ -10,11 +10,11 @@ import "./styles.css";
 import ScrollableChat from "./ScrollableChat";
 
 import io from "socket.io-client";
-const ENDPOINT = "https://ahead-chats-backend.onrender.com";
-var socket, selectedChatCompare;
+// const ENDPOINT = "https://ahead-chats-backend.onrender.com";
+var selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, selectedChat, setSelectedChat , url } = ChatState();
+  const { user, selectedChat, setSelectedChat , url , socket } = ChatState();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,13 +55,27 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
  },[user])
 
 
+  // useEffect(() => {
+  //   socket = io(ENDPOINT);
+  //   socket.emit("setup", user);
+  //   socket.on("connected", () => setsocketConnected(true));
+  //   socket.on("typing", () => setIsTyping(true));
+  //   socket.on("stop typing", () => setIsTyping(false));
+  // }, []);
+
   useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", user);
-    socket.on("connected", () => setsocketConnected(true));
-    socket.on("typing", () => setIsTyping(true));
-    socket.on("stop typing", () => setIsTyping(false));
-  }, []);
+  if (!socket) return;
+  socket.emit("setup", user);
+  socket.on("connected", () => setsocketConnected(true));
+  socket.on("typing", () => setIsTyping(true));
+  socket.on("stop typing", () => setIsTyping(false));
+
+  return () => {
+    socket.off("connected");
+    socket.off("typing");
+    socket.off("stop typing");
+  };
+}, [user]);
 
   useEffect(() => {
     selectedChatIdRef.current = selectedChat?._id;
