@@ -1,4 +1,4 @@
-import { VStack , Input , InputGroup , InputRightElement , Button, useSize} from "@chakra-ui/react";
+import { VStack , Input , InputGroup , InputRightElement , Button} from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
   FormControl,
@@ -46,7 +46,7 @@ const Login = () => {
         <VStack spacing={"5px"} >
           
     
-          <FormControl id="email" isRequired>
+          <FormControl id="loginemail" isRequired>
             <FormLabel>Email</FormLabel>
             <Input
             placeholder = 'Enter Your Email'
@@ -55,7 +55,7 @@ const Login = () => {
             />
           </FormControl>
          
-          <FormControl id="password" isRequired>
+          <FormControl id="loginpassword" isRequired>
             <FormLabel>Password</FormLabel>
             <InputGroup>
             <Input

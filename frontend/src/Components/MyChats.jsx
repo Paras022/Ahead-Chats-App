@@ -4,9 +4,10 @@ import axios from "axios";
 import { Text, Box, Stack } from "@chakra-ui/react";
 import ChatLoading from "./ChatLoading";
 import { getSender, getSenderFull } from "../Config/ChatLogics";
+
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
-
+  const [loading, setLoading] = useState(true);
   const {
     selectedChat,
     setSelectedChat,
@@ -15,10 +16,12 @@ const MyChats = ({ fetchAgain }) => {
     setChats,
     socket,
     onlineUsers,
-    url
+    url,
   } = ChatState();
+
   const fetchChats = async () => {
     // console.log(user._id);
+
     try {
       const config = {
         headers: {
@@ -26,12 +29,10 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get(
-        `${url}/api/chat`,
-        config
-      );
+      const { data } = await axios.get(`${url}/api/chat`, config);
 
       setChats(data);
+      setLoading(false);
     } catch (error) {
       console.error(
         "Error fetching chats:",
@@ -63,6 +64,8 @@ const MyChats = ({ fetchAgain }) => {
       socket.off("chat-received", handleChatReceived);
     };
   }, [socket, setChats]);
+
+  // const getlatestmessage = ()  => chats.latestMessage.content;
 
   return (
     <Box
@@ -98,7 +101,9 @@ const MyChats = ({ fetchAgain }) => {
         borderRadius="lg"
         overflowY="hidden"
       >
-        {chats ? (
+        {loading ? (
+          <ChatLoading />
+        ) : chats.length !== 0 ? (
           <Stack overflowY={"scroll"}>
             {chats.map((chat) => (
               <Box
@@ -113,14 +118,13 @@ const MyChats = ({ fetchAgain }) => {
               >
                 <Text display="flex" alignItems="center">
                   {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users)
+                    ? getSenderFull(loggedUser, chat.users).name
                     : chat.chatName}
-                 {
-                    loggedUser &&
-                    getSenderFull(loggedUser, chat.users) && // Ensure getSenderFull doesn't return null
+                  {loggedUser &&
+                    getSenderFull(loggedUser, chat.users) && // Ensure getSenderFull doesn't return null in querying is late
                     onlineUsers.includes(
                       getSenderFull(loggedUser, chat.users)._id
-                    )  && (
+                    ) && (
                       <span
                         style={{
                           color: "green",
@@ -143,7 +147,8 @@ const MyChats = ({ fetchAgain }) => {
             ))}
           </Stack>
         ) : (
-          <ChatLoading />
+          <Text>Search Users and start chatting</Text>
+          // <ChatLoading/>
         )}
       </Box>
     </Box>

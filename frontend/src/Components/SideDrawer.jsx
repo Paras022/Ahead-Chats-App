@@ -25,11 +25,14 @@ const SideDrawer = () => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, setSelectedChat, chats, setChats, socket ,url} = ChatState();
+  const { user, setSelectedChat, chats, setChats, socket ,url ,setSocket} = ChatState();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
+    
+    socket.disconnect(); // Disconnect  user's socket
+    setSocket(null);
     navigate("/");
   };
 
@@ -87,7 +90,7 @@ const SideDrawer = () => {
         { userId },
         config
       );
-      console.log(data);
+      // console.log(data);
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);

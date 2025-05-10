@@ -18,7 +18,8 @@ const ScrollableChat = ({ messages }) => {
   }, [messages]);
 
   return (
-    <Box overflowY="auto" maxHeight="400px" px={3}>
+    <Box overflowY="auto" maxHeight="480px" px={3}>
+      
       {messages &&
         messages.map((m, i) => (
           <Box
@@ -36,8 +37,9 @@ const ScrollableChat = ({ messages }) => {
                     mr={1}
                     size="sm"
                     cursor="pointer"
+                    // color={'green'}
                     name={m.sender.name}
-                    src={m.sender.pic}
+                    // src={m.sender.pic}
                   />
                 </Tooltip>
               )
@@ -57,6 +59,7 @@ const ScrollableChat = ({ messages }) => {
           </Box>
         ))}
       <div ref={chatEndRef} />
+      
     </Box>
   );
 };

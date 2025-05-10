@@ -40,6 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Login : find user credentials from database and send his data to frontend if found
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });

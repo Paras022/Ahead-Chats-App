@@ -17,6 +17,7 @@ import { useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
+
  
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -50,6 +51,7 @@ const Home = () => {
         borderRadius={"lg"}
         borderWidth={"1px"}
       >
+        { /*  switching tabs from chakra UI */ }
         <Tabs variant="soft-rounded" colorScheme="purple">
           <TabList marginBottom={"1em"}>
             <Tab width={"50%"}>Login</Tab>
